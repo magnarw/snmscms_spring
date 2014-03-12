@@ -13,6 +13,7 @@ public class News {
 	String imgUrl; 
 	String _id; 
 	Integer cat; 
+	Integer pri;
 	
 	public Integer getCat() {
 		return cat;

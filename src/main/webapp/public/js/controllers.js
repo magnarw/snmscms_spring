@@ -258,7 +258,7 @@ function NewsAdminController($scope, $http, $timeout,$upload) {
 
     $scope.getNewsWithFilter = function(filter) {
         $http({
-            url: '/rest/json/news?filter=' + filter,
+            url: 'http://localhost:8081/snmscms/rest/json/news?filter=' + filter,
             method: 'GET',
             headers: 'Content-Type : application/json'
         }).success(function(data) {
@@ -287,7 +287,7 @@ function NewsAdminController($scope, $http, $timeout,$upload) {
         };
 
 
-        var urlToPost = '/admin/api/news';
+        var urlToPost = 'snmscms/rest/admin/news';
         $http({
             url: urlToPost,
             method: 'POST',
@@ -311,8 +311,8 @@ function NewsAdminController($scope, $http, $timeout,$upload) {
 
     $scope.deleteNews = function(news) {
         $http({
-            url: '/admin/api/news/remove',
-            method: 'POST',
+            url: 'http://localhost:8081/snmscms/rest/admin/news',
+            method: 'DELETE',
             data: news,
             headers: {
                 'Content-Type': 'application/json'
@@ -388,7 +388,7 @@ function NewsAdminController($scope, $http, $timeout,$upload) {
     for (var i = 0; i < $files.length; i++) {
       var file = $files[i];
       $scope.upload = $upload.upload({
-        url: '/admin/api/upload', //upload.php script, node.js route, or servlet url
+        url: 'http://localhost:8081/snmscms/rest/admin/upload', //upload.php script, node.js route, or servlet url
         method: 'POST',
         // headers: {'headerKey': 'headerValue'}, withCredential: true,
         file: file,

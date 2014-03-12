@@ -18,6 +18,8 @@
         <property name="host" value="46.137.184.176" />
     </bean>
   
+  <context:property-placeholder location="file:/config/snms-config.properties"/>
+  
   <mongo:db-factory dbname="snms" />
   <bean name="newsRepository" class="no.snms.repository.NewsRepository" />
   <bean name="jummaRepository" class="no.snms.repository.JummaRepository" />
