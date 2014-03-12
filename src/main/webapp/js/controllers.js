@@ -117,7 +117,7 @@ function HolidaysAdminController($scope, $http, $timeout) {
 
     $scope.getHolidays = function() {
         $http({
-            url: '/api/holidays',
+            url: 'rest/json/jumma',
             method: 'GET',
             headers: 'Content-Type : application/json'
         }).success(function(data) {
@@ -129,24 +129,23 @@ function HolidaysAdminController($scope, $http, $timeout) {
 
     $scope.saveHolidays = function() {
         $http({
-            url: '/admin/api/holidays',
+            url: 'rest/json/jumma',
             method: 'POST',
             data: $scope.holidays,
             headers: {
                 'Content-Type': 'application/json'
             }
         }).success(function(data) {
-            //$scope.preyTimes = data;
+        	alert("Bønn er nå lageret");
         }).error(function(data) {
             alert("Kunne ikke lagre fredagsbÃ¸nner til serveren. PrÃ¸v igjen senere");
         });
     }
 
-
     $scope.removeJumma = function(jumma) {
         $http({
-            url: '/admin/api/jumma/remove',
-            method: 'POST',
+            url: 'rest/json/jumma',
+            method: 'DELETE',
             data: jumma,
             headers: {
                 'Content-Type': 'application/json'
@@ -248,7 +247,7 @@ function NewsAdminController($scope, $http, $timeout,$upload) {
 
     $scope.getNews = function() {
         $http({
-            url: 'http://localhost:8081/snmscms/rest/json/news',
+            url: 'rest/json/news',
             method: 'GET',
             headers: 'Content-Type : application/json'
         }).success(function(data) {
@@ -258,7 +257,7 @@ function NewsAdminController($scope, $http, $timeout,$upload) {
 
     $scope.getNewsWithFilter = function(filter) {
         $http({
-            url: 'http://localhost:8081/snmscms/rest/json/news?filter=' + filter,
+            url: 'rest/json/news?filter=' + filter,
             method: 'GET',
             headers: 'Content-Type : application/json'
         }).success(function(data) {
@@ -287,7 +286,7 @@ function NewsAdminController($scope, $http, $timeout,$upload) {
         };
 
 
-        var urlToPost = 'snmscms/rest/admin/news';
+        var urlToPost = 'rest/admin/news';
         $http({
             url: urlToPost,
             method: 'POST',
@@ -311,7 +310,7 @@ function NewsAdminController($scope, $http, $timeout,$upload) {
 
     $scope.deleteNews = function(news) {
         $http({
-            url: 'http://localhost:8081/snmscms/rest/admin/news',
+            url: 'snmscms/rest/admin/news',
             method: 'DELETE',
             data: news,
             headers: {
@@ -388,7 +387,7 @@ function NewsAdminController($scope, $http, $timeout,$upload) {
     for (var i = 0; i < $files.length; i++) {
       var file = $files[i];
       $scope.upload = $upload.upload({
-        url: 'http://localhost:8081/snmscms/rest/admin/upload', //upload.php script, node.js route, or servlet url
+        url: 'rest/admin/upload', //upload.php script, node.js route, or servlet url
         method: 'POST',
         // headers: {'headerKey': 'headerValue'}, withCredential: true,
         file: file,
