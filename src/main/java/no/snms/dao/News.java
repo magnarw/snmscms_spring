@@ -14,6 +14,65 @@ public class News {
 	String _id; 
 	Integer cat; 
 	Integer pri;
+	String address;
+	Date from;
+	Date to;
+	String articleImageUrl;
+	
+	
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public Date getFrom() {
+		return from;
+	}
+
+	public void setFrom(Date from) {
+		this.from = from;
+	}
+
+	public Date getTo() {
+		return to;
+	}
+
+	public void setTo(Date to) {
+		this.to = to;
+	}
+
+	public Date getLat() {
+		return lat;
+	}
+
+	public void setLat(Date lat) {
+		this.lat = lat;
+	}
+
+	public Double getLng() {
+		return lng;
+	}
+
+	public void setLng(Double lng) {
+		this.lng = lng;
+	}
+
+	public Boolean getShowMap() {
+		return showMap;
+	}
+
+	public void setShowMap(Boolean showMap) {
+		this.showMap = showMap;
+	}
+
+	Date lat;
+	Double lng;
+	Boolean showMap;
+
+	
 	
 	public Integer getCat() {
 		return cat;

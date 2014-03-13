@@ -23,8 +23,11 @@ public class NewsRepository {
 
 	public List<News> listNews(String pageSize, String pageNumber, String filter) {
 		Query query = new Query();
-		if (filter != null)
+		logger.debug("Querying with news with pagSize=" + pageSize +", pageNumber=" + pageNumber +", filter=" + filter);
+		if (filter != null && Integer.valueOf(filter)!=0) {
 			query.addCriteria(where("cat").is(Integer.valueOf(filter)));
+			logger.debug("Querying with news with filter=" + filter);
+		}
 		if (pageNumber != null && pageSize != null) {
 			query.limit(Integer.valueOf(pageSize));
 			query.skip(Integer.valueOf(pageSize) * Integer.valueOf(pageNumber));
