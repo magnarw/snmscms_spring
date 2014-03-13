@@ -66,8 +66,8 @@ public class AdminJsonService {
 	}
 	
 	
-	@DELETE
-	@Path("/news")
+	@POST
+	@Path("/news/delete")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response deleteNews(News newToDelete){
 		try {

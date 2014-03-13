@@ -76,4 +76,15 @@ public class News {
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
 	}
+
+	public Integer getPri() {
+		return pri;
+	}
+
+	public void setPri(Integer pri) {
+		this.pri = pri;
+	}
+	
+	
+	
 }

@@ -310,8 +310,8 @@ function NewsAdminController($scope, $http, $timeout,$upload) {
 
     $scope.deleteNews = function(news) {
         $http({
-            url: 'snmscms/rest/admin/news',
-            method: 'DELETE',
+            url: 'rest/admin/news/delete',
+            method: 'POST',
             data: news,
             headers: {
                 'Content-Type': 'application/json'
