@@ -18,8 +18,20 @@ public class News {
 	Date from;
 	Date to;
 	String articleImageUrl;
+	Float lat;
+	Float lng;
+	Boolean showMap;
+
 	
 	
+	public String getArticleImageUrl() {
+		return articleImageUrl;
+	}
+
+	public void setArticleImageUrl(String articleImageUrl) {
+		this.articleImageUrl = articleImageUrl;
+	}
+
 	public String getAddress() {
 		return address;
 	}
@@ -44,19 +56,19 @@ public class News {
 		this.to = to;
 	}
 
-	public Date getLat() {
+	public Float getLat() {
 		return lat;
 	}
 
-	public void setLat(Date lat) {
+	public void setLat(Float lat) {
 		this.lat = lat;
 	}
 
-	public Double getLng() {
+	public Float getLng() {
 		return lng;
 	}
 
-	public void setLng(Double lng) {
+	public void setLng(Float lng) {
 		this.lng = lng;
 	}
 
@@ -68,9 +80,6 @@ public class News {
 		this.showMap = showMap;
 	}
 
-	Date lat;
-	Double lng;
-	Boolean showMap;
 
 	
 	

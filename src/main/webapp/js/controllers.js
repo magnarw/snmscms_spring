@@ -348,8 +348,10 @@ function NewsAdminController($scope, $http, $timeout,$upload) {
     $scope.editNews = function(news) {
         $scope.isInEditMode = true;
         $scope.imageHasChanged = false;
-
+        $scope.images = [];
+        
         if(news.imgUrl){
+         
           $scope.images.push({'imageText' : news.imageText, 'background' : true, 'imageUrl' : news.imgUrl});
         }
 
