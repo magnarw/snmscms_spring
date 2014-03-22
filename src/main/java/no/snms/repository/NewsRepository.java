@@ -16,9 +16,12 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class NewsRepository {
+	
 	@Autowired
 	private MongoOperations mongoOperations;
+	
 	private static final Logger logger = Logger.getLogger(NewsRepository.class);
+	
 	public static final String COLLECTION_NAME = "news";
 
 	public List<News> listNews(String pageSize, String pageNumber, String filter) {
@@ -29,10 +32,21 @@ public class NewsRepository {
 			logger.debug("Querying with news with filter=" + filter);
 		}
 		if (pageNumber != null && pageSize != null) {
-			query.limit(Integer.valueOf(pageSize));
+			query.limit(Integer.valueOf(pageSize)+1);
 			query.skip(Integer.valueOf(pageSize) * Integer.valueOf(pageNumber));
 		}
-		return mongoOperations.find(query, News.class, COLLECTION_NAME);
+		List<News> newsFormMongo = mongoOperations.find(query, News.class, COLLECTION_NAME);
+		if (pageNumber != null && pageSize != null) {
+			boolean hasMoreElements = (newsFormMongo!=null && newsFormMongo.size()>0 && newsFormMongo.size()==Integer.valueOf(pageSize)+1);
+			for(News newsItem : newsFormMongo){
+				newsItem.setHasMoreElements(hasMoreElements);
+				newsItem.setNextPage(Integer.valueOf(pageNumber+1));
+			}
+			if(hasMoreElements){
+				newsFormMongo.remove(newsFormMongo.size()-1);
+			}
+		}
+		return newsFormMongo;
 	}
 
 	public void updateNews(News newsToUpdate) throws Exception {

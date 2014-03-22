@@ -177,6 +177,14 @@ function NewsAdminController($scope, $http, $timeout,$upload) {
     $scope.newArticleImage;
     $scope.image;
     $scope.images = [];
+    
+    $scope.alerts = [
+                  
+   ];
+    
+    $scope.closeAlert = function(index) {
+        $scope.alerts.splice(index, 1);
+    };
 
     $scope.priority = [{
         name: 'Forsiden 1',
@@ -301,9 +309,10 @@ function NewsAdminController($scope, $http, $timeout,$upload) {
                 $scope.getNews();
             }
             $scope.cancelEdit();
-            alert("Nyhet har blitt lagret på servern");
+            $scope.alerts.push({type : "success", msg: "Nyhet er lagret!"});
+            $timeout(function() {$scope.alerts=[];}, 5000);
         }).error(function(error) {
-            alert("Noe gikk galt ved lagring av nyhet. Kontakt Magnar på 46793283");
+        	 $scope.alerts.push({type : "danger", msg: "Noe gikk galt ved lagring av nyhet. Kontakt Magnar på 46793283"});
         });
     };
 
@@ -365,9 +374,7 @@ function NewsAdminController($scope, $http, $timeout,$upload) {
         $scope.cat = null;
         if (news.pri) {
             for (var i = 0; i < $scope.priority.length; i++) {
-                console.log("Kommer inn her");
                 if ($scope.priority[i].value === news.pri) {
-                    console.log("Kommer indfdfn her");
                     $scope.pri = $scope.priority[i];
                 }
             }

@@ -21,9 +21,29 @@ public class News {
 	Float lat;
 	Float lng;
 	Boolean showMap;
+	
+	/** These should be moved into a wrapper object.. **/
+	Boolean hasMoreElements;
+	Integer nextPage; 
+	
+	
+	
+	public Boolean getHasMoreElements() {
+		return hasMoreElements;
+	}
 
-	
-	
+	public void setHasMoreElements(Boolean hasMoreElements) {
+		this.hasMoreElements = hasMoreElements;
+	}
+
+	public Integer getNextPage() {
+		return nextPage;
+	}
+
+	public void setNextPage(Integer nextPage) {
+		this.nextPage = nextPage;
+	}
+
 	public String getArticleImageUrl() {
 		return articleImageUrl;
 	}
