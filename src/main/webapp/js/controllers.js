@@ -235,6 +235,10 @@ function NewsAdminController($scope, $http, $timeout,$upload) {
       }
 
     };
+    
+    $scope.hasChoosenBackgroundImage = function() {
+    	return getBackgroundImage();
+    };
 
     var getBackgroundImage = function(){
       for(var i = 0;i<$scope.images.length;i++){

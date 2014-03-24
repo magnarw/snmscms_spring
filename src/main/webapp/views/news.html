@@ -3,14 +3,13 @@
 		<div class="panel-heading">
 			<h3 class="panel-title">Administrer nyheter</h3>
 		</div>
-
 		<div class="panel-body">
 			<div>
 				<div class="well well-lg">
 					<h2 ng-show="isInEditMode">NB! Du er nå i endremodus</h2>
 					<h4 ng-hide="isInEditMode">Legg til nyhet</h4>
 					<h4 ng-show="isInEditMode">Endre nyhet</h4>
-					<form class="form-horizontal" role="form">
+					<form name="newsForm" class="form-horizontal" role="form">
 						<div class="form-group">
 							<label for="category" class="col-lg-2 control-label">Velg
 								kateogri</label>
@@ -21,26 +20,26 @@
 								</select>
 							</div>
 						</div>
-						<div class="form-group">
-							<label for="inputNavn" class="col-lg-2 control-label">Forfatter</label>
-							<div class="col-lg-10">
+						<div class="form-group" ng-class="{'has-error': newsForm.author.$invalid}">
+							<label for="inputNavn" class="col-lg-2 control-label">Forfatter * </label>
+							<div class="col-lg-8">
 								<input type="text" ng-model="selectedNews.author"
-									class="form-control" id="inputNavn" placeholder="Forfatter"
+									class="form-control" name="author"  id="inputNavn" placeholder="Forfatter"
 									required>
 							</div>
+							<div class="col-lg-2">
+									 <span class="label label-danger" ng-show="newsForm.author.$error.required">
+    								  Påkrevd felt!</span>
+							</div>
 						</div>
-						<div class="form-group" ng-show="isEvent()">
-							<label for="adresse" class="col-lg-2 control-label">Adresse</label>
+						<div class="form-group" ng-class="{'has-error': newsForm.address.$invalid}"  ng-if="isEvent()">
+							<label for="adresse" class="col-lg-2 control-label">Addresse * </label>
 							<div class="col-lg-4">
 								<google-places address="selectedNews.address"
-									lat="selectedNews.lat" lng="selectedNews.lng"></google-places>
-							</div>
-							<div class="col-lg-3">
-								Vis kart i app: <input type="checkbox"
-									ng-model="selectedNews.showMap"> <br />
+									lat="selectedNews.lat" lng="selectedNews.lng" name="address" required />
 							</div>
 						</div>
-						<div class="form-group" ng-show="isEvent()">
+						<div class="form-group" ng-if="isEvent()">
 							<label for="adresse" class="col-lg-2 control-label"></label>
 							<div class="col-lg-3">
 								<span> Lat <strong>{{selectedNews.lat}}</strong>
@@ -48,51 +47,75 @@
 								</span>
 							</div>
 						</div>
-						<div class="form-group" ng-show="isEvent()">
-							<label for="fra" class="col-lg-2 control-label">Fra</label>
-							<div class="col-lg-10">
+						<div class="form-group" ng-class="{'has-error': newsForm.from.$invalid}"  ng-if="isEvent()">
+							<label for="fra" class="col-lg-2 control-label">Fra * </label>
+							<div class="col-lg-8">
 								<datetimepicker id="fra" data-on-set-time="onTimeSet"
-									data-ng-model="selectedNews.from"></datetimepicker>
+									data-ng-model="selectedNews.from" name="from" required/>
+							</div>
+							<div class="col-lg-2">
+									 <span class="label label-danger" ng-show="newsForm.from.$error.required">
+    								  Påkrevd felt!</span>
 							</div>
 						</div>
-						<div class="form-group" ng-show="isEvent()">
-							<label for="til" class="col-lg-2 control-label">Til</label>
-							<div class="col-lg-10">
-								<datetimepicker id="fra" data-on-set-time="onTimeSet"
-									data-ng-model="selectedNews.to"></datetimepicker>
+						<div class="form-group" ng-if="isEvent()" ng-class="{'has-error': newsForm.to.$invalid}">
+							<label for="til" class="col-lg-2 control-label">Til * </label>
+							<div class="col-lg-8">
+								<datetimepicker id="fra" name="to" data-on-set-time="onTimeSet"
+									data-ng-model="selectedNews.to" required/>
+							</div>
+							<div class="col-lg-2">
+									 <span class="label label-danger" ng-show="newsForm.to.$error.required">
+    								  Påkrevd felt!</span>
 							</div>
 						</div>
-						<div class="form-group">
-							<label for="inputNavn" class="col-lg-2 control-label">Tittel</label>
-							<div class="col-lg-10">
+						<div class="form-group" ng-class="{'has-error': newsForm.title.$invalid}">
+							<label for="inputNavn" class="col-lg-2 control-label">Tittel * </label>
+							<div class="col-lg-8">
 								<input type="text" ng-model="selectedNews.title"
-									class="form-control" id="inputNavn" placeholder="Tittel">
+									class="form-control" id="inputNavn" name="title" placeholder="Tittel" required>
+							</div>
+							<div class="col-lg-2">
+									 <span class="label label-danger" ng-show="newsForm.title.$error.required">
+    								  Påkrevd felt!</span>
 							</div>
 						</div>
-						<div class="form-group">
-							<label for="inputTime" class="col-lg-2 control-label">Ingress</label>
-							<div class="col-lg-10">
-								<textarea class="form-control" ng-model="selectedNews.ingress"
-									id="inputTime" placeholder="Tekst" />
+						<div class="form-group" ng-class="{'has-error': newsForm.ingress.$invalid}">
+							<label for="inputTime" class="col-lg-2 control-label">Ingress * </label>
+							<div class="col-lg-8">
+								<textarea class="form-control" name="ingress" ng-model="selectedNews.ingress"
+									id="inputTime" placeholder="Ingress" required />
+							</div>
+							<div class="col-lg-2">
+									 <span class="label label-danger" ng-show="newsForm.ingress.$error.required">
+    								  Påkrevd felt!</span>
 							</div>
 						</div>
-						<div class="form-group">
-							<label for="inputTime" class="col-lg-2 control-label">Tekst</label>
-							<div class="col-lg-10">
+						<div class="form-group" ng-class="{'has-error': newsForm.text.$invalid}">
+							<label for="inputTime" class="col-lg-2 control-label">Tekst * </label>
+							<div class="col-lg-8">
 								<textarea class="form-control" ng-model="selectedNews.text"
-									id="inputTime" placeholder="Tekst" />
+									id="inputTime" placeholder="Tekst" name="text" required/>
+							</div>
+							<div class="col-lg-2">
+									 <span class="label label-danger" ng-show="newsForm.text.$error.required">
+    								  Påkrevd felt!</span>
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="exampleInputFile" class="col-lg-2 control-label">Velg
-								bilder</label>
-							<div class="col-lg-10">
+								bilder * </label>
+							<div class="col-lg-2">
 								<input type="file" ng-file-select="onFileSelect($files)">
+							</div>
+							<div class="col-lg-2">
+									 <span class="label label-danger" ng-show="!hasChoosenBackgroundImage()">
+    								  Du m� velge et bakgrunnsbilde</span>
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="inputTime" class="col-lg-2 control-label"></label>
-							<div class="col-lg-10">
+							<div class="col-lg-8">
 								<ul class="list-group">
 									<li ng-repeat="image in images" class="list-group-item"><img
 										height="42" width="42" src="{{image.imageUrl}}" /> Bruk som
@@ -108,6 +131,8 @@
 
 								</ul>
 							</div>
+						
+							
 							<!--div class="col-lg-10">
 							<textarea class="form-control" ng-model="selectedNews.imageText" id="inputTime" placeholder="Bilde tekst"/>
 						</div-->
@@ -124,8 +149,8 @@
 						</div>
 						<div class="form-group">
 							<div class="col-lg-offset-2 col-lg-10">
-								<button type="submit" class="btn btn-default"
-									ng-click="saveNews(selectedNews)">Lagre nyhet til
+								<button type="submit" class="btn btn-success btn-lg"
+									ng-disabled="!newsForm.$valid || !hasChoosenBackgroundImage()" ng-click="saveNews(selectedNews)">Lagre nyhet til
 									server</button>
 							</div>
 						</div>

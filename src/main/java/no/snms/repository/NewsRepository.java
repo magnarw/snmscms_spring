@@ -1,5 +1,7 @@
 package no.snms.repository;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import no.snms.dao.News;
@@ -9,6 +11,7 @@ import static org.springframework.data.mongodb.core.query.Query.query;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
@@ -26,6 +29,13 @@ public class NewsRepository {
 
 	public List<News> listNews(String pageSize, String pageNumber, String filter) {
 		Query query = new Query();
+		
+		/*
+		 *   "sort": [['pri','desc'], ['createdDate','-1']]
+		 * 
+		 */
+		query.with(new Sort(Sort.Direction.DESC, "pri"));
+		query.with(new Sort("-1", "createdDate"));
 		logger.debug("Querying with news with pagSize=" + pageSize +", pageNumber=" + pageNumber +", filter=" + filter);
 		if (filter != null && Integer.valueOf(filter)!=0) {
 			query.addCriteria(where("cat").is(Integer.valueOf(filter)));
@@ -40,7 +50,7 @@ public class NewsRepository {
 			boolean hasMoreElements = (newsFormMongo!=null && newsFormMongo.size()>0 && newsFormMongo.size()==Integer.valueOf(pageSize)+1);
 			for(News newsItem : newsFormMongo){
 				newsItem.setHasMoreElements(hasMoreElements);
-				newsItem.setNextPage(Integer.valueOf(pageNumber+1));
+				newsItem.setNextPage(Integer.valueOf(pageNumber)+1);
 			}
 			if(hasMoreElements){
 				newsFormMongo.remove(newsFormMongo.size()-1);
@@ -58,6 +68,7 @@ public class NewsRepository {
 				query.addCriteria(where("pri").is(newsToUpdate.getPri()));
 				mongoOperations.updateMulti(query,update,News.class);
 			}
+			newsToUpdate.setCreatedDate(new Date(System.currentTimeMillis()));
 			mongoOperations.save(newsToUpdate);
 		} catch (Exception e) {
 			logger.error("Could not updaet news." + e.getMessage());
