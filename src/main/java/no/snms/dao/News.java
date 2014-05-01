@@ -18,9 +18,18 @@ public class News {
 	Date from;
 	Date to;
 	String articleImageUrl;
+	public String getArticleImageText() {
+		return articleImageText;
+	}
+
+	public void setArticleImageText(String articleImageText) {
+		this.articleImageText = articleImageText;
+	}
+
 	Float lat;
 	Float lng;
 	Boolean showMap;
+	String articleImageText;
 	
 	/** These should be moved into a wrapper object.. **/
 	Boolean hasMoreElements;

@@ -13,6 +13,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
@@ -35,7 +36,7 @@ public class NewsRepository {
 		 * 
 		 */
 		query.with(new Sort(Sort.Direction.DESC, "pri"));
-		query.with(new Sort("-1", "createdDate"));
+		query.with(new Sort(Sort.Direction.DESC, "createdDate"));
 		logger.debug("Querying with news with pagSize=" + pageSize +", pageNumber=" + pageNumber +", filter=" + filter);
 		if (filter != null && Integer.valueOf(filter)!=0) {
 			query.addCriteria(where("cat").is(Integer.valueOf(filter)));
@@ -63,10 +64,14 @@ public class NewsRepository {
 		try {
 			if(newsToUpdate.getPri()!=null && (newsToUpdate.getPri()==1 || newsToUpdate.getPri()==2)){
 				Query query = new Query();
-				Update update = new Update();
-				update.addToSet("pri", -1);
-				query.addCriteria(where("pri").is(newsToUpdate.getPri()));
-				mongoOperations.updateMulti(query,update,News.class);
+				query.addCriteria(Criteria.where("pri").is(newsToUpdate.getPri()));
+				List<News> news = mongoOperations.find(query, News.class);
+				for(News n : news){
+					n.setPri(null);
+					mongoOperations.save(n);
+					logger.error("Change pri of news");
+				}	
+			
 			}
 			newsToUpdate.setCreatedDate(new Date(System.currentTimeMillis()));
 			mongoOperations.save(newsToUpdate);
