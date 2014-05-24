@@ -13,6 +13,7 @@
 		<spring-data-mongodb-version>1.2.0.RELEASE</spring-data-mongodb-version>
 		<jersey-version>1.17.1</jersey-version>
 		<spring-security-version>3.2.3.RELEASE</spring-security-version>
+		<javax.servlet-api.version>2.5</javax.servlet-api.version>
 	</properties>
 
 	<repositories>
@@ -148,6 +149,13 @@
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-config</artifactId>
 			<version>${spring-security-version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>${javax.servlet-api.version}</version>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 

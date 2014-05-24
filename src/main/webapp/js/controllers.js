@@ -75,10 +75,11 @@ function PreyAdminController($scope, $http, $timeout) {
 }
 
 
-function HolidaysAdminController($scope, $http, $timeout) {
+function HolidaysAdminController($scope, $http, $timeout,$rootScope) {
 
     $scope.holidays = [];
-
+    $rootScope.news = false; 
+    $rootScope.jumma = true; 
     /*
   $scope.newHolidayName = "";
   $scope.newHolidayFrom; 
@@ -136,7 +137,7 @@ function HolidaysAdminController($scope, $http, $timeout) {
                 'Content-Type': 'application/json'
             }
         }).success(function(data) {
-        	alert("Bønn er nå lageret");
+        	alert("Bï¿½nn er nï¿½ lageret");
         }).error(function(data) {
             alert("Kunne ikke lagre fredagsbÃ¸nner til serveren. PrÃ¸v igjen senere");
         });
@@ -170,9 +171,36 @@ function HolidaysAdminController($scope, $http, $timeout) {
 
 }
 
+function LoginController($scope, $rootScope, $location, $cookieStore, UserService) {
+	
+	$scope.rememberMe = true;
+	
+	$scope.login = function() {
+		UserService.authenticate($.param({username: $scope.username, password: $scope.password}), function(authenticationResult) {
+			var authToken = authenticationResult.token;
+			$rootScope.authToken = authToken;
+			if ($scope.rememberMe) {
+				$cookieStore.put('authToken', authToken);
+			}
+			UserService.get(function(user) {
+				$rootScope.user = user;
+				$location.path("/");
+			});
+		});
+	};
+};
 
-function NewsAdminController($scope, $http, $timeout,$upload) {
+function HeaderController($scope, $rootScope, $location, $cookieStore) {
+	
 
+};
+
+
+function NewsAdminController($scope, $http, $timeout,$upload,$rootScope) {
+	$rootScope.jumma = false; 
+	$rootScope.news = true; 
+	
+	
     $scope.news = [];
     $scope.newArticleImage;
     $scope.image;

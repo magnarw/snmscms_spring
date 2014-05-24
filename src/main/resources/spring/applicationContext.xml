@@ -24,6 +24,7 @@
   <context:property-placeholder location="file:/config/snms-config.properties"/>
   
   <mongo:db-factory dbname="snms" />
+  <bean name="userDao" class="no.snms.service.UserDao" />
   <bean name="newsRepository" class="no.snms.repository.NewsRepository" />
   <bean name="jummaRepository" class="no.snms.repository.JummaRepository" />
   <bean name="mongoOperations" class="org.springframework.data.mongodb.core.MongoTemplate">

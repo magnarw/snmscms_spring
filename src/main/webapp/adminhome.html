@@ -10,9 +10,11 @@
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
 <body>
-
-	<div class="navbar navbar-default navbar-fixed-top">
-		<div class="container">
+	<div class="loader" ng-hide="initialized">
+		Loading...
+	</div>
+	<div class="navbar navbar-default navbar-fixed-top" ng-show="initialized">
+		<div ng-controller="HeaderController" class="container">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse"
 					data-target=".navbar-collapse">
@@ -23,16 +25,26 @@
 					src="images/5290130.png" alt="Snus og Kaffe" /> <span>Mobiladmin</span>
 				</a>
 			</div>
-			<div class="collapse navbar-collapse">
+			<div  ng-if="user.name"
+				class="collapse navbar-collapse">
 				<ul class="nav navbar-nav">
-					<li id="jummabar"><a href="#holidays">Fredagsbønn</a></li>
-					<li id="newsbar"><a href="#news">Nyheter</a></li>
+					<li ng-class="{active: jumma}" id="jummabar"><a href="#holidays">Fredagsbønn</a></li>
+					<li ng-class="{active: news}" id="newsbar"><a href="#news">Nyheter</a></li>
 				</ul>
+			
+			<ul class="nav navbar-nav navbar-right">
+				<p class="navbar-text">Logget inn som <a href="#" class="navbar-link">{{user.name}}</a></p>
+				<li class="dropdown"><a href="#" class="dropdown-toggle"
+					data-toggle="dropdown">Valg <b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li><a href="" ng-click="logout()" href="#">Logg ut</a></li>
+					</ul></li>
+			</ul>
 			</div>
 		</div>
 	</div>
 	<div class="row">
-		<div class="container main-content">
+		<div class="container main-content" ng-show="initialized">
 			<div ng-view></div>
 		</div>
 	</div>
@@ -42,7 +54,8 @@
 	<script src="lib/moment/moment-with-langs.js"></script>
 	<script src="lib/bootstrap/bootstrap.js"></script>
 	<script src="lib/angluar/angular.js"></script>
-    <script src="lib/angluar/angular-route.js"></script>
+	<script src="lib/angluar/angular-route.js"></script>
+	<script src="lib/angluar/angular-cookies.js"></script>
 	<script src="lib/angular-file-upload/angular-file-upload.js"></script>
 	<script src="lib/angluar/angular-resource.js"></script>
 	<script src="lib/angluar-bootstrap/ui-bootstrap-tpls-0.10.0.js"></script>
@@ -56,21 +69,6 @@
 </body>
 
 
-<script>
-    $( document ).ready(function() {
-        console.log( "document loaded" );
-        $("#jummabar").click(function() {
-          $("#jummabar").addClass('active'); 
-          $("#newsbar").removeClass("active"); 
-        });
 
-        $("#newsbar").click(function() {
-          $("#newsbar").addClass('active'); 
-          $("#jummabar").removeClass("active"); 
-        });
-
-    });
- 
-    </script>
 
 </html>
