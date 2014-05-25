@@ -50,9 +50,9 @@ public class PublicJsonService {
 	@GET
 	@Path("/news")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getNews(@QueryParam(value = "pageSize") String pageSize,@QueryParam(value = "pageNumber") String pageNumber,@QueryParam(value = "filter") String filter) {
+	public Response getNews(@QueryParam(value = "pageSize") String pageSize,@QueryParam(value = "pageNumber") String pageNumber,@QueryParam(value = "filter") String filter,@QueryParam(value = "includePri") boolean includePri ) {
 		try {
-			return Response.status(201).entity(newsRepository.listNews(pageSize,pageNumber,filter)).build();
+			return Response.status(201).entity(newsRepository.listNews(pageSize,pageNumber,filter, includePri)).build();
 		}
 		catch(Exception e) {
 			e.printStackTrace();

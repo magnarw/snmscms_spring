@@ -58,15 +58,11 @@
     								  Påkrevd felt!</span>
 							</div>
 						</div>
-						<div class="form-group" ng-if="isEvent()" ng-class="{'has-error': newsForm.to.$invalid}">
-							<label for="til" class="col-lg-2 control-label">Til * </label>
+						<div class="form-group" ng-if="isEvent()">
+							<label for="til" class="col-lg-2 control-label">Til</label>
 							<div class="col-lg-8">
 								<datetimepicker id="fra" name="to" data-on-set-time="onTimeSet"
-									data-ng-model="selectedNews.to" required/>
-							</div>
-							<div class="col-lg-2">
-									 <span class="label label-danger" ng-show="newsForm.to.$error.required">
-    								  Påkrevd felt!</span>
+									data-ng-model="selectedNews.to"/>
 							</div>
 						</div>
 						<div class="form-group" ng-class="{'has-error': newsForm.title.$invalid}">
@@ -80,11 +76,11 @@
     								  Påkrevd felt!</span>
 							</div>
 						</div>
-						<div class="form-group" ng-class="{'has-error': newsForm.ingress.$invalid}">
-							<label for="inputTime" class="col-lg-2 control-label">Ingress * </label>
+						<div class="form-group" >
+							<label for="inputTime" class="col-lg-2 control-label">Ingress </label>
 							<div class="col-lg-8">
 								<textarea class="form-control" name="ingress" ng-model="selectedNews.ingress"
-									id="inputTime" placeholder="Ingress" required />
+									id="inputTime" placeholder="Ingress"/>
 							</div>
 							<div class="col-lg-2">
 									 <span class="label label-danger" ng-show="newsForm.ingress.$error.required">
@@ -110,7 +106,7 @@
 							</div>
 							<div class="col-lg-2">
 									 <span class="label label-danger" ng-show="!hasChoosenBackgroundImage()">
-    								  Du m� velge et bakgrunnsbilde</span>
+    								  Du m� velge et bakgrunnsbilde</span>
 							</div>
 						</div>
 						<div class="form-group">

@@ -28,14 +28,16 @@ public class NewsRepository {
 	
 	public static final String COLLECTION_NAME = "news";
 
-	public List<News> listNews(String pageSize, String pageNumber, String filter) {
+	public List<News> listNews(String pageSize, String pageNumber, String filter, boolean includePri) {
 		Query query = new Query();
 		
 		/*
 		 *   "sort": [['pri','desc'], ['createdDate','-1']]
 		 * 
 		 */
-		query.with(new Sort(Sort.Direction.DESC, "pri"));
+		if(includePri)	
+			query.with(new Sort(Sort.Direction.DESC, "pri"));
+		
 		query.with(new Sort(Sort.Direction.DESC, "createdDate"));
 		logger.debug("Querying with news with pagSize=" + pageSize +", pageNumber=" + pageNumber +", filter=" + filter);
 		if (filter != null && Integer.valueOf(filter)!=0) {
@@ -62,7 +64,7 @@ public class NewsRepository {
 
 	public void updateNews(News newsToUpdate) throws Exception {
 		try {
-			if(newsToUpdate.getPri()!=null && (newsToUpdate.getPri()==1 || newsToUpdate.getPri()==2)){
+			if(newsToUpdate.getPri()!=null && (newsToUpdate.getPri()>0)){
 				Query query = new Query();
 				query.addCriteria(Criteria.where("pri").is(newsToUpdate.getPri()));
 				List<News> news = mongoOperations.find(query, News.class);

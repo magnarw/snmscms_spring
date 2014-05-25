@@ -216,9 +216,24 @@ function NewsAdminController($scope, $http, $timeout,$upload,$rootScope) {
 
     $scope.priority = [{
         name: 'Forsiden 1',
-        value: 2
+        value: 6
     }, {
         name: 'Forsiden 2',
+        value: 5
+    },
+    {
+        name: 'Forsiden 3',
+        value: 4
+    },
+    {
+        name: 'Forsiden 4',
+        value: 3
+    },{
+        name: 'Forsiden 5',
+        value: 2
+    },
+    {
+        name: 'Forsiden 6',
         value: 1
     }];
 
