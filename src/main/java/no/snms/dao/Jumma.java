@@ -10,6 +10,7 @@ public class Jumma {
 	Date updated;
 	int hours; 
 	int minuttes;
+	String _id; 
 	
 	
 	public int getFromMonth() {
@@ -53,6 +54,12 @@ public class Jumma {
 	}
 	public void setMinuttes(int minuttes) {
 		this.minuttes = minuttes;
+	}
+	public String get_id() {
+		return _id;
+	}
+	public void set_id(String _id) {
+		this._id = _id;
 	} 
 	
 

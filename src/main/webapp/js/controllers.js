@@ -130,7 +130,7 @@ function HolidaysAdminController($scope, $http, $timeout,$rootScope) {
 
     $scope.saveHolidays = function() {
         $http({
-            url: 'rest/json/jumma',
+            url: 'rest/admin/jumma',
             method: 'POST',
             data: $scope.holidays,
             headers: {
@@ -145,7 +145,7 @@ function HolidaysAdminController($scope, $http, $timeout,$rootScope) {
 
     $scope.removeJumma = function(jumma) {
         $http({
-            url: 'rest/json/jumma',
+            url: 'rest/admin/jumma',
             method: 'DELETE',
             data: jumma,
             headers: {

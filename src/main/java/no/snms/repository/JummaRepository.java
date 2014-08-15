@@ -21,6 +21,19 @@ public class JummaRepository {
     public List<Jumma> listJumma() {
     	return mongoOperations.findAll(Jumma.class, COLLECTION_NAME);
     }
+    
+    public void updateJumma(List <Jumma> jummas){
+    
+    	for(Jumma jummaToRemove : jummas){
+    		mongoOperations.save(jummaToRemove);
+    	}
+    	
+    }
+
+	public void deleteJumma(Jumma jumma) {
+		mongoOperations.remove(jumma);
+		
+	}
 	
 	
 }

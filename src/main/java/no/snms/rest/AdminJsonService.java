@@ -15,6 +15,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.List;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -25,6 +26,7 @@ import com.sun.jersey.core.header.FormDataContentDisposition;
 import com.sun.jersey.multipart.FormDataParam;
 
 import no.snms.dao.Image;
+import no.snms.dao.Jumma;
 import no.snms.dao.News;
 import no.snms.repository.JummaRepository;
 import no.snms.repository.NewsRepository;
@@ -74,6 +76,40 @@ public class AdminJsonService {
 			return Response.status(500).entity("Something went wrong").build();
 		}
 	}
+	
+	
+	@POST
+	@Path("/jumma")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response updateJumma(List<Jumma> jummas){
+		try {
+			logger.debug("Trying to update jumma"); 
+			jummaRepository.updateJumma(jummas);
+			return Response.status(200).entity("ok").build();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			logger.error("Could not update news.Message=" + e.getMessage()); 
+			return Response.status(500).entity("Something went wrong").build();
+		}
+	}
+	
+	@DELETE
+	@Path("/jumma")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response delteJumma(Jumma jumma){
+		try {
+			logger.debug("Trying remove jumma"); 
+			jummaRepository.deleteJumma(jumma);
+			return Response.status(200).entity("ok").build();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			logger.error("Could not update news.Message=" + e.getMessage()); 
+			return Response.status(500).entity("Something went wrong").build();
+		}
+	}
+	
 	
 	
 	@POST
